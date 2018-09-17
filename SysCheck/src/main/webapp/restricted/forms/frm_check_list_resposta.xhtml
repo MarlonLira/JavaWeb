@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui" template="/WEB-INF/templates/tpl_layout.xhtml">
+
+	<ui:define name="content">
+		<h1 class="aw-page-title">Check List</h1>
+
+		<h:form id="frmPrincipal">
+			<p:growl id="growl" autoUpdate="true" showDetail="true" showSummary="false" severity="info, warn, error" life="5000" />
+
+			<div class="campoForm">
+				<p:outputLabel value="Equipamento" />
+				<div class="EmptyBox5" />
+				<p:selectOneMenu id="equipamento" value="#{checkListRespostaController.equipamento}" converter="EquipamentoConverter">
+					<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
+					<f:selectItems value="#{checkListRespostaController.listEquipamentoSI}" />
+
+					<p:ajax listener="#{checkListRespostaController.selecionaEquipamento()}" update="dtItemRespostaWrapper" />
+				</p:selectOneMenu>
+			</div>
+
+			<p:dataTable id="dtItemRespostaWrapper" editable="true" editMode="cell" value="#{checkListRespostaController.checkListRespostaWrapper.itens}" var="dtItemRespostaWrapperVar" emptyMessage="Nenhum item adicionado">
+				<p:column headerText="Item" width="20%">
+					<h:outputText value="#{dtItemRespostaWrapperVar.item}" />
+				</p:column>
+
+				<p:column headerText="Status" width="20%" style="text-align: center;">
+					<p:selectOneButton id="status" value="#{dtItemRespostaWrapperVar.status}">
+						<f:selectItem itemLabel="Ok" itemValue="O" />
+						<f:selectItem itemLabel="Problema" itemValue="P" />
+
+						<p:ajax update="status" />
+					</p:selectOneButton>
+				</p:column>
+
+				<p:column headerText="Observação">
+					<p:inputText value="#{dtItemRespostaWrapperVar.observacao}" style="width: 95%" />
+				</p:column>
+
+				<f:facet name="footer">
+					<p:commandButton value="Salvar" action="#{checkListRespostaController.salvar(null)}" update="@form" />
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
