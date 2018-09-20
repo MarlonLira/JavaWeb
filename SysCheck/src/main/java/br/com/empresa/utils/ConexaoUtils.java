@@ -3,7 +3,7 @@ package br.com.empresa.utils;
 public class ConexaoUtils {
 	
 	protected static final String IP_LOCAL = "127.0.0.1";
-	protected static final String IP_DESENVOLVIMENTO = "0.0.0.0";
+	protected static final String IP_DESENVOLVIMENTO = "localhost";
 	protected static final String IP_HOMOLOGACAO = "0.0.0.0";
 	protected static final String IP_PRODUCAO = "0.0.0.0";
 	
@@ -11,12 +11,12 @@ public class ConexaoUtils {
 	protected static final String PORTA_PADRAO = ":5432";
 	protected static final String NOME_BASE = "sysCheck";
 	protected static final String USUARIO = "postgres";
-	protected static final String SENHA = "5564";
+	protected static final String SENHA = "root";
 	
-	protected static boolean isDesenvolvimento = false;
+	protected static boolean isDesenvolvimento = true;
 	protected static boolean isProducao = false;
-	protected static boolean isHomologacao = true;
-	protected static boolean isLocal = true;
+	protected static boolean isHomologacao = false;
+	protected static boolean isLocal = false;
 
 	public static String host() {
 		if (isLocal) {
